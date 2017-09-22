@@ -1,7 +1,7 @@
 $(document).ready(function(){
 console.log('READY!');
 
-	function Ball(id, pos_x=0, pos_y=0) {
+	function Ball(id, pos_x=300, pos_y=300) {
 		this.id = id;
 		this.pos_x = pos_x;
 		this.pos_y = pos_y;
@@ -15,10 +15,28 @@ console.log('READY!');
 			$('#playing-field').append(this.$element);
 		},
 
-		moveRight: function(){
-			console.log('Im moving right!');
-			let thisBall = this.$element
-			this.pos_x += 10;
+		moveSomewhere: function(direction){
+			console.log('Im moving' + direction);
+			switch (direction){
+				case 'up':
+					console.log('Im moving up!');
+					this.pos_y -= 10;
+					break;
+				case 'down':
+					console.log('Im moving down!');
+					this.pos_y += 10;
+					break;
+				case 'left':
+					console.log('Im moving right!');
+					this.pos_x += 10;
+					break;
+				case 'right':
+					console.log('Im moving right!');
+					this.pos_x -= 10;
+					break;
+			}
+
+			this.$element.css('top', (this.pos_y + 'px'));
 			this.$element.css('left', (this.pos_x + 'px'));
 		},
 
@@ -30,10 +48,15 @@ console.log('READY!');
 
 		moveBall: function(){
 			console.log(this);
-			if (Math.random() > 0.5){
-				this.moveRight();
+			let rand = Math.random();
+			if (rand > 0.75){
+				this.moveSomewhere('right');
+			} else if (rand > 0.5) {
+				this.moveSomewhere('down');
+			} else if (rand > 0.25) {
+				this.moveSomewhere('left');
 			} else {
-				this.moveDown();
+				this.moveSomewhere('up');
 			}
 		}
 
