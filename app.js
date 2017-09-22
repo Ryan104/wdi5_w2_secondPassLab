@@ -23,9 +23,18 @@ console.log('READY!');
 		},
 
 		moveDown: function(){
-			console.log('Im moving!');
+			console.log('Im moving down!');
 			this.pos_y += 10;
 			this.$element.css('top', (this.pos_y + 'px'));
+		},
+
+		moveBall: function(){
+			console.log(this);
+			if (Math.random() > 0.5){
+				this.moveRight();
+			} else {
+				this.moveDown();
+			}
 		}
 
 	}
@@ -38,11 +47,9 @@ console.log('READY!');
 		for (let i=0; i<10; i++){
 			allBalls.push(new Ball(i));
 			allBalls[i].createBall();
-			window.setInterval(allBalls[i].moveRight.bind(allBalls[i].self), 1000);
+			window.setInterval(allBalls[i].moveBall.bind(allBalls[i].self), 1000);
 
 		}
-
-		console.log(allBalls);
 
 
 
